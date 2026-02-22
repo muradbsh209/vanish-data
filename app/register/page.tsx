@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '../../components/AuthProvider'
 import { Lock, Home } from 'lucide-react'
 
-export default function RegisterPage() {
+function RegisterForm() {
   const { register } = useAuth()
   const router = useRouter()
   const search = useSearchParams()
@@ -69,5 +69,13 @@ export default function RegisterPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Loading...</div>}>
+      <RegisterForm />
+    </Suspense>
   )
 }
